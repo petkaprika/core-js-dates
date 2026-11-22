@@ -17,8 +17,8 @@
  * '01 Jan 1970 00:00:00 UTC' => 0
  * '04 Dec 1995 00:12:00 UTC' => 818035920000
  */
-function dateToTimestamp(/* date */) {
-  throw new Error('Not implemented');
+function dateToTimestamp(date) {
+  return new Date(date).getTime();
 }
 
 /**
@@ -31,8 +31,17 @@ function dateToTimestamp(/* date */) {
  * Date(2023, 5, 1, 8, 20, 55) => '08:20:55'
  * Date(2015, 10, 20, 23, 15, 1) => '23:15:01'
  */
-function getTime(/* date */) {
-  throw new Error('Not implemented');
+function getTime(date) {
+  let hours = date.getHours();
+  hours = hours < 10 ? `0${hours}` : hours;
+
+  let minutes = date.getMinutes();
+  minutes = minutes < 10 ? `0${minutes}` : minutes;
+
+  let seconds = date.getSeconds();
+  seconds = seconds < 10 ? `0${seconds}` : seconds;
+
+  return `${hours}:${minutes}:${seconds}`;
 }
 
 /**
@@ -46,8 +55,25 @@ function getTime(/* date */) {
  * '03 Dec 1995 00:12:00 UTC' => 'Sunday'
  * '2024-01-30T00:00:00.000Z' => 'Tuesday'
  */
-function getDayName(/* date */) {
-  throw new Error('Not implemented');
+function getDayName(date) {
+  switch (new Date(date).getDay()) {
+    case 0:
+      return 'Sunday';
+    case 1:
+      return 'Monday';
+    case 2:
+      return 'Tuesday';
+    case 3:
+      return 'Wendsday';
+    case 4:
+      return 'Thursday';
+    case 5:
+      return 'Friday';
+    case 6:
+      return 'Saturday';
+    default:
+      throw new Error('exception');
+  }
 }
 
 /**
@@ -61,8 +87,34 @@ function getDayName(/* date */) {
  * Date('2024-02-13T00:00:00Z') => Date('2024-02-16T00:00:00Z')
  * Date('2024-02-16T00:00:00Z') => Date('2024-02-23T00:00:00Z')
  */
-function getNextFriday(/* date */) {
-  throw new Error('Not implemented');
+function getNextFriday(date) {
+  const result = new Date(date);
+
+  switch (date.getDay()) {
+    case 0:
+      result.setDate(result.getDate() + 5);
+      return result;
+    case 1:
+      result.setDate(result.getDate() + 4);
+      return result;
+    case 2:
+      result.setDate(result.getDate() + 3);
+      return result;
+    case 3:
+      result.setDate(result.getDate() + 2);
+      return result;
+    case 4:
+      result.setDate(result.getDate() + 1);
+      return result;
+    case 5:
+      result.setDate(result.getDate() + 7);
+      return result;
+    case 6:
+      result.setDate(result.getDate() + 6);
+      return result;
+    default:
+      throw new Error('exception');
+  }
 }
 
 /**
